@@ -33,7 +33,7 @@ form = """
             <form action='/' method="post">
                 <label for="rotate-input">Rotate by: </label>
                 <input id="rotate-input" type="text" name="rot" value="0" />
-                <textarea name="text">
+                <textarea name="text">{0}
                 </textarea>
                 <input type="submit" />
 
@@ -51,7 +51,7 @@ page_footer = """
 
 @app.route("/")
 def index():
-    return page_header + form + page_footer
+    return page_header + form.format('') + page_footer
 
 @app.route("/", methods=['POST'])
 def encrypt():
@@ -63,6 +63,6 @@ def encrypt():
     encrypted_text += rotate_string(user_text, rotate)
     
 
-    return page_header + form + "<h1>" +encrypted_text + "</h1>" + page_footer
+    return page_header + form.format(encrypted_text) + page_footer
 
 app.run()
